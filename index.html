@@ -134,9 +134,8 @@ footer{max-width:1040px;margin:0 auto;padding:10px 24px 30px;display:flex;justif
 /* ===== EDIT THIS PART ===== */
 const CONFIG = {
   etransferEmail: "haileycwpark@gmail.com ",                    // where customers send e-Transfers
-  scriptUrl: "https://script.google.com/macros/s/AKfycbzacRP5c0JBbx6rlwaJq4jKaknXkGF5jOs-S5yJ-q1V948oEBIxsOn4V6i99TAjpjRU/exec",         // Google Apps Script web app URL
-  blocked: [],                                         // filled automatically from your Google Sheet
-  // (시트 연결 전 기본값. 연결 후에는 시트의 Holidays 탭이 우선돼요)
+  scriptUrl: "https://script.google.com/macros/s/AKfycbzacRP5c0JBbx6rlwaJq4jKaknXkGF5jOs-S5yJ-q1V948oEBIxsOn4V6i99TAjpjRU/exec",  
+  blocked: ['2026-11-24','2026-11-25','2026-11-26','2026-11-15','2026-11-16','2026-11-17','2026-11-18','2026-12-16','2026-12-20'],                                        
   holidays: ["2026-12-24","2026-12-25","2026-12-26","2026-12-31","2027-01-01","2027-02-15","2027-03-26","2027-05-24","2027-07-01"]
 };
 /* ========================= */
