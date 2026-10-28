@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pet Care Booking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#3d2b1a;--mute:#8a7a66;--line:#ece3d0;--cream:#fff8e1;--pill:#fdf0c4;--yel:#fcc93a;--yel-d:#e7ad12;--sel:#fff0b3;--green:#4a7c4e;--green-l:#d3ead6;--sum:#e9f3e6;--red:#b4443a}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:15px/1.45 "Fredoka","Trebuchet MS",sans-serif;
+ background:radial-gradient(ellipse at 70% 0,#fff6cf,transparent 60%),linear-gradient(#fde9a0,#fff3c4 40%,#fde9a0);min-height:100vh;position:relative;overflow-x:hidden}
+.paw{position:absolute;opacity:.35;font-size:26px;pointer-events:none}
+.hand{font-family:"Caveat",cursive;font-size:22px;line-height:1.05;margin:0}
+.hero{max-width:1040px;margin:0 auto;padding:36px 20px 0;display:flex;align-items:flex-end;justify-content:space-between;position:relative}
+.hero h1{font:700 clamp(44px,8vw,76px)/.95 "Fredoka",sans-serif;margin:8px 0 14px;letter-spacing:-1px}
+.lead{margin:0;font-size:17px;color:#5a4630}
+.hero-art{font-size:clamp(80px,16vw,150px);line-height:1;min-width:150px;text-align:center;position:relative;z-index:1;margin-bottom:-8px}
+.hero-art img{max-width:360px;width:100%;display:block}
+.good{position:absolute;right:26px;top:70px;transform:rotate(12deg);text-align:center}
+main{max-width:1040px;margin:0 auto;padding:0 16px 30px;position:relative}
+#f{display:grid;grid-template-columns:1.15fr 1fr;gap:20px;align-items:start}
+.card{background:rgba(255,255,255,.93);border-radius:22px;padding:18px;box-shadow:0 6px 18px rgba(160,120,30,.12)}
+.sec{display:flex;align-items:center;gap:10px;background:var(--pill);border-radius:12px;padding:6px 12px 6px 6px;font:600 18px "Fredoka";margin:18px 0 12px}
+.sec:first-child{margin-top:0}
+.sec i{font-style:normal;background:#fff;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-size:16px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.sec small{font-weight:400;font-size:13px}
+.sec b,label b{color:#e0613a;font-weight:500}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+label.l{display:block;font-size:13px;margin-bottom:3px}
+input[type=text],input[type=tel],input[type=email],textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;font:inherit;background:#fff;color:var(--ink)}
+::placeholder{color:#c2b8a8}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--yel-d);outline-offset:1px}
+.opt{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:9px;cursor:pointer;background:#fff}
+.opt:has(input:checked){border-color:var(--yel);background:var(--sel)}
+.opt input{accent-color:#b8721d;width:18px;height:18px;flex:none}
+.opt .tx{flex:1;display:block}.opt .tx b{display:block;font-weight:600;font-size:16px}
+.opt .tx span,.opt .tx small{display:block;font-size:13px;color:#6a5a46}.opt .tx small{color:var(--mute)}
+.opt.svc input{order:3}
+.ic{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:30px;flex:none}
+.cal-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600}
+.cal-h button{border:1px solid var(--line);background:#fff;border-radius:50%;width:34px;height:34px;font-size:18px;cursor:pointer;color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center}
+.dow{font-size:12px;color:var(--mute)}
+.day{aspect-ratio:1/.92;border:1px solid var(--line);border-radius:9px;background:#fff;font:inherit;color:var(--ink);cursor:pointer;position:relative}
+.day:disabled{cursor:not-allowed}
+.day.off{background:#faf7f0;color:#c9c0b0;text-decoration:line-through}
+.day.range{background:var(--green-l);border-color:var(--green-l)}
+.day.sel{background:var(--green);color:#fff;border-color:var(--green);font-weight:600}
+.day.hol::after{content:"";position:absolute;bottom:4px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--yel)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:#6a5a46;margin:10px 0 8px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px;font-style:normal}
+#hint{background:var(--pill);border-radius:10px;padding:8px 12px;font-size:14px}
+.msg{color:var(--red);font-size:14px;min-height:18px;margin-top:4px}
+textarea{resize:vertical}
+.sum{background:var(--sum);border-radius:16px;padding:14px 16px;margin:14px 0}
+.sum h3{margin:0 0 8px;font:600 18px "Fredoka"}
+#lines{color:#6a5a46;font-size:14px;padding-bottom:12px;border-bottom:2px dashed #c9dcc6}
+.total{font:700 28px "Fredoka";text-align:right;margin-top:8px}
+.btn{width:100%;padding:14px;border:0;border-radius:12px;background:var(--yel);color:var(--ink);font:600 19px "Fredoka";cursor:pointer;box-shadow:0 3px 0 var(--yel-d)}
+.btn:disabled{opacity:.6}
+.fine{text-align:center;color:var(--mute);font-size:13px;margin:10px 0 0}
+.polaroid{background:#fff;padding:12px 12px 26px;width:min(300px,85%);margin:26px auto 0;transform:rotate(-3deg);box-shadow:0 8px 20px rgba(120,90,20,.2);text-align:center}
+.polaroid div{background:linear-gradient(#ffe9b8,#f7d38a);height:170px;display:grid;place-items:center;font-size:64px;position:relative}
+.polaroid p{position:absolute;left:12px;top:6px;text-align:left;transform:rotate(-8deg)}
+#done{display:none;max-width:520px;margin:20px auto}
+footer{max-width:1040px;margin:0 auto;padding:10px 24px 30px;display:flex;justify-content:space-between;align-items:center;font-weight:600}
+@media(max-width:820px){#f{grid-template-columns:1fr}.hero-art{display:none}.good{display:none}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<span class="paw" style="top:60px;left:6%">🐾</span><span class="paw" style="top:140px;right:30%">🐾</span><span class="paw" style="top:420px;right:4%">🐾</span>
+<header class="hero">
+  <div>
+    <p class="hand">Happy pets<br>Happy days ♥</p>
+    <h1>Pet Care<br>Booking 🐾</h1>
+    <p class="lead">Pick a service and your dates,<br>and you'll see the total right away.</p>
+  </div>
+  <div class="hero-art"><span id="emo">🐶🐱</span><img src="hero.png" alt="" onload="emo.style.display='none'" onerror="this.remove()"></div>
+  <p class="hand good">Good<br>Friends<br>Always ♡</p>
+</header>
+<main>
+<form id="f" novalidate>
+  <section class="card">
+    <h2 class="sec"><i>🐾</i>Your Information</h2>
+    <div class="two">
+      <div><label class="l" for="name">Your name <b>*</b></label><input type="text" id="name" placeholder="e.g. Jane Smith"></div>
+      <div><label class="l" for="dog">Your dog's name <b>*</b></label><input type="text" id="dog" placeholder="e.g. Buddy"></div>
+      <div><label class="l" for="phone">Phone number <b>*</b></label><input type="tel" id="phone" placeholder="e.g. 416-123-4567"></div>
+      <div><label class="l" for="email">Email</label><input type="email" id="email" placeholder="e.g. jane@example.com"></div>
+    </div>
+
+    <h2 class="sec"><i>🐾</i>Which service do you need? <b>*</b></h2>
+    <label class="opt svc"><span class="ic" style="background:#ffe6bd">🐶</span><span class="tx"><b>Doggy Daycare</b><span>$35/day · Holiday $45/day</span><small>Not available on Fridays</small></span><input type="radio" name="svc" value="daycare"></label>
+    <label class="opt svc"><span class="ic" style="background:#4b4f9e">🌙</span><span class="tx"><b>Boarding <small style="display:inline">(overnight in my home)</small></b><span>$45/night · Holiday $55/night</span><small>Extended care: 50–100% of nightly rate</small></span><input type="radio" name="svc" value="boarding"></label>
+    <label class="opt svc"><span class="ic" style="background:#ffeccd">🏠</span><span class="tx"><b>Drop-In Visit <small style="display:inline">(in your home, up to 1 hour)</small></b><span>Dogs &amp; cats: $25/visit · Holiday $35/visit</span></span><input type="radio" name="svc" value="dropin"></label>
+
+    <h2 class="sec"><i>🐾</i>Requested dates <b>*</b></h2>
+    <div class="cal-h"><button type="button" id="prev" aria-label="Previous month">‹</button><span id="mon"></span><button type="button" id="next" aria-label="Next month">›</button></div>
+    <div class="grid" id="dows"></div>
+    <div class="grid" id="days"></div>
+    <div class="legend"><span><i style="background:var(--green)"></i>Selected</span><span><i style="background:var(--green-l)"></i>In range</span><span><i style="background:var(--yel)"></i>Holiday rate</span><span><i style="color:#b9ad98">⊘</i>Unavailable</span></div>
+    <div id="hint">Choose a service first.</div>
+    <div class="msg" id="calmsg"></div>
+
+    <h2 class="sec"><i>🐾</i>Anything else? <small>(optional)</small></h2>
+    <textarea id="note" rows="3" placeholder="Tell us about your pet's habits, special needs, etc."></textarea>
+  </section>
+
+  <aside>
+    <section class="card">
+      <h2 class="sec"><i>🐾</i>Payment <b>*</b></h2>
+      <label class="opt"><input type="radio" name="pay" value="etransfer"><span class="tx"><b>Interac e-Transfer</b><small>Booking is confirmed right away</small></span></label>
+      <label class="opt"><input type="radio" name="pay" value="cash"><span class="tx"><b>Cash</b><small>Pay at drop-off. I'll confirm your request shortly.</small></span></label>
+      <div class="sum">
+        <h3>🐾 Booking Summary</h3>
+        <div id="lines">No dates selected yet.</div>
+        <div class="total">🐾 Total: $<span id="total">0</span></div>
+      </div>
+      <div class="msg" id="err"></div>
+      <button class="btn" id="go" type="submit">🐾 Request booking</button>
+      <p class="fine">We'll get back to you as soon as possible!</p>
+    </section>
+    <div class="polaroid"><div><p class="hand">Safe<br>Comfortable<br>Loved</p>🐶🐱</div></div>
+  </aside>
+</form>
+<div id="done" class="card"></div>
+</main>
+<footer><span class="hand">Because they're family ♥</span><span>🏠 Pet Care 🐾</span></footer>
+
+<script>
+/* ===== EDIT THIS PART ===== */
+const CONFIG = {
+  etransferEmail: "you@example.com",                    // where customers send e-Transfers
+  scriptUrl: "PASTE_YOUR_APPS_SCRIPT_URL_HERE",         // Google Apps Script web app URL
+  blocked: [],                                          // filled automatically from your Google Sheet
+  // (시트 연결 전 기본값. 연결 후에는 시트의 Holidays 탭이 우선돼요)
+  holidays: ["2026-12-24","2026-12-25","2026-12-26","2026-12-31","2027-01-01","2027-02-15","2027-03-26","2027-05-24","2027-07-01"]
+};
+/* ========================= */
+
+const RATES = {daycare:[35,45], boarding:[45,55], dropin:[25,35]};
+const NAMES = {daycare:"Doggy Daycare", boarding:"Boarding", dropin:"Drop-In Visit"};
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2,"0");
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parse = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y,m-1,d); };
+const today = iso(new Date());
+let svc = null, picked = [], start = null, end = null;
+let view = new Date(); view.setDate(1);
+
+["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(d => $("dows").insertAdjacentHTML("beforeend", `<div class="dow">${d}</div>`));
+
+function isOff(s){
+  if (s < today || CONFIG.blocked.includes(s)) return true;
+  if (svc === "daycare" && parse(s).getDay() === 5) return true;
+  return false;
+}
+const rate = s => RATES[svc][CONFIG.holidays.includes(s) ? 1 : 0];
+
+function boardingNights(){
+  const out = []; if (!start || !end) return out;
+  for (let d = parse(start); iso(d) < end; d.setDate(d.getDate()+1)) out.push(iso(d));
+  return out;
+}
+function chosen(){ return svc === "boarding" ? boardingNights() : picked; }
+
+function draw(){
+  $("mon").textContent = view.toLocaleString("en-CA",{month:"long",year:"numeric"});
+  const g = $("days"); g.innerHTML = "";
+  const first = new Date(view.getFullYear(), view.getMonth(), 1).getDay();
+  const n = new Date(view.getFullYear(), view.getMonth()+1, 0).getDate();
+  for (let i=0;i<first;i++) g.insertAdjacentHTML("beforeend","<div></div>");
+  const nights = boardingNights();
+  for (let d=1; d<=n; d++){
+    const s = `${view.getFullYear()}-${pad(view.getMonth()+1)}-${pad(d)}`;
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = d; b.className = "day";
+    const off = !svc || isOff(s);
+    if (isOff(s)) b.classList.add("off");
+    if (CONFIG.holidays.includes(s)) b.classList.add("hol");
+    if (svc === "boarding"){
+      if (s === start || s === end) b.classList.add("sel");
+      else if (nights.includes(s)) b.classList.add("range");
+    } else if (picked.includes(s)) b.classList.add("sel");
+    b.disabled = off;
+    b.onclick = () => pick(s);
+    g.appendChild(b);
+  }
+}
+
+function pick(s){
+  $("calmsg").textContent = "";
+  if (svc === "boarding"){
+    if (!start || end){ start = s; end = null; }
+    else if (s > start){
+      for (let d = parse(start); iso(d) < s; d.setDate(d.getDate()+1)){
+        if (isOff(iso(d))){ $("calmsg").textContent = "That range includes an unavailable day."; start = s; end = null; return refresh(); }
+      }
+      end = s;
+    } else { start = s; }
+  } else {
+    picked = picked.includes(s) ? picked.filter(x => x !== s) : [...picked, s].sort();
+  }
+  refresh();
+}
+
+function refresh(){
+  draw();
+  const days = chosen();
+  let total = 0, counts = {};
+  days.forEach(s => { const r = rate(s); total += r; counts[r] = (counts[r]||0)+1; });
+  const unit = svc === "boarding" ? "night" : svc === "daycare" ? "day" : "visit";
+  $("lines").textContent = days.length
+    ? Object.entries(counts).map(([r,c]) => `${c} × $${r} per ${unit}`).join("  +  ")
+    : (svc === "boarding" && start ? "Now pick your check-out day." : "No dates selected yet.");
+  $("total").textContent = total;
+  return total;
+}
+
+document.querySelectorAll('[name=svc]').forEach(r => r.onchange = () => {
+  svc = r.value; picked = []; start = end = null;
+  $("hint").textContent = svc === "boarding"
+    ? "Tap check-in day, then check-out day."
+    : svc === "daycare" ? "Tap each day you need (no Fridays)." : "Tap each day you need a visit.";
+  refresh();
+});
+$("prev").onclick = () => { view.setMonth(view.getMonth()-1); draw(); };
+$("next").onclick = () => { view.setMonth(view.getMonth()+1); draw(); };
+draw();
+async function loadBlocked(){ try{ const r=await fetch(CONFIG.scriptUrl); const j=await r.json(); CONFIG.blocked=j.blocked||[]; if(j.holidays) CONFIG.holidays=j.holidays; }catch{} }
+loadBlocked().then(refresh);
+
+$("f").onsubmit = async e => {
+  e.preventDefault();
+  const days = chosen(), pay = document.querySelector('[name=pay]:checked');
+  const err = m => { $("err").textContent = m; };
+  if (!$("name").value.trim() || !$("dog").value.trim() || !$("phone").value.trim()) return err("Please fill in your name, your dog's name, and phone number.");
+  if (!svc) return err("Please choose a service.");
+  if (!days.length) return err(svc === "boarding" ? "Please pick check-in and check-out days." : "Please pick at least one date.");
+  if (!pay) return err("Please choose a payment method.");
+  err("");
+  const total = refresh();
+  const dateText = svc === "boarding" ? `${start} to ${end} (${days.length} nights)` : days.join(", ");
+  const data = {name:$("name").value, dog:$("dog").value, phone:$("phone").value, email:$("email").value,
+    service:NAMES[svc], dates:days.join(", "), total:"$"+total, payment:pay.value==="etransfer"?"e-Transfer":"Cash", note:$("note").value};
+  try {
+    const r = await fetch(CONFIG.scriptUrl, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify(data)});
+    const j = await r.json();
+    if (!j.ok){ await loadBlocked(); picked=[]; start=end=null; refresh(); $("go").disabled=false; $("go").textContent="Request booking"; return err(j.error); }
+  } catch { $("go").disabled = false; $("go").textContent = "Request booking"; return err("Couldn't send your request. Please try again or text me directly."); }
+  const box = $("done");
+  box.innerHTML = pay.value === "etransfer"
+    ? `<h2>✅ Booking confirmed!</h2><p><b>${NAMES[svc]}</b> for ${$("dog").value}<br>${dateText}</p><p>Please send <b>$${total}</b> by Interac e-Transfer to <b>${CONFIG.etransferEmail}</b>. See you soon!</p>`
+    : `<h2>Request received 🎉</h2><p><b>${NAMES[svc]}</b> for ${$("dog").value}<br>${dateText}</p><p>I'll confirm shortly. Please bring <b>$${total}</b> in cash at drop-off.</p>`;
+  box.style.display = "block"; $("f").style.display = "none"; box.scrollIntoView();
+};
+</script>
+</body>
+</html>
