@@ -133,9 +133,9 @@ footer{max-width:1040px;margin:0 auto;padding:10px 24px 30px;display:flex;justif
 <script>
 /* ===== EDIT THIS PART ===== */
 const CONFIG = {
-  etransferEmail: "haileycwpark@gmail.com ",                    // where customers send e-Transfers
-  scriptUrl: "https://script.google.com/macros/s/AKfycbzacRP5c0JBbx6rlwaJq4jKaknXkGF5jOs-S5yJ-q1V948oEBIxsOn4V6i99TAjpjRU/exec",  
-  blocked: ['2026-11-24','2026-11-25','2026-11-26','2026-11-15','2026-11-16','2026-11-17','2026-11-18','2026-12-16','2026-12-20'],                                        
+  etransferEmail: "haileycwpark@gmail.com",                    // where customers send e-Transfers
+  scriptUrl: "https://script.google.com/macros/s/AKfycbzacRP5c0JBbx6rlwaJq4jKaknXkGF5jOs-S5yJ-q1V948oEBIxsOn4V6i99TAjpjRU/exec",         // Google Apps Script web app URL
+  blocked: [],                                        
   holidays: ["2026-12-24","2026-12-25","2026-12-26","2026-12-31","2027-01-01","2027-02-15","2027-03-26","2027-05-24","2027-07-01"]
 };
 /* ========================= */
@@ -229,7 +229,8 @@ document.querySelectorAll('[name=svc]').forEach(r => r.onchange = () => {
 $("prev").onclick = () => { view.setMonth(view.getMonth()-1); draw(); };
 $("next").onclick = () => { view.setMonth(view.getMonth()+1); draw(); };
 draw();
-async function loadBlocked(){ try{ const r=await fetch(CONFIG.scriptUrl); const j=await r.json(); CONFIG.blocked=j.blocked||[]; if(j.holidays) CONFIG.holidays=j.holidays; }catch{} }
+const BASE=[...CONFIG.blocked];
+async function loadBlocked(){ try{ const r=await fetch(CONFIG.scriptUrl); const j=await r.json(); CONFIG.blocked=[...new Set([...BASE,...(j.blocked||[])])]; if(j.holidays) CONFIG.holidays=j.holidays; }catch{} }
 loadBlocked().then(refresh);
 
 $("f").onsubmit = async e => {
