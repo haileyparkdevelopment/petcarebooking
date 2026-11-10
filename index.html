@@ -153,6 +153,7 @@ let view = new Date(); view.setDate(1);
 ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(d => $("dows").insertAdjacentHTML("beforeend", `<div class="dow">${d}</div>`));
 
 function isOff(s){
+  if (s >= "2027-03-01") return true;
   if (s < today || CONFIG.blocked.includes(s)) return true;
   if (svc === "daycare" && [0,5].includes(parse(s).getDay())) return true;
   return false;
