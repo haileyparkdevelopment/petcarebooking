@@ -1,0 +1,24 @@
+{
+  "client": "Amanda",
+  "dog": "Misa",
+  "date": "2026-11-23",
+  "dropoff": "08:00",
+  "pickup": "18:00",
+  "pee": 1,
+  "poo": 2,
+  "food": 0,
+  "water": 1,
+  "walks": [
+    {
+      "time": "12:00",
+      "minutes": 50,
+      "km": 1.81
+    },
+    {
+      "time": "16:30",
+      "minutes": 50,
+      "km": 1.32
+    }
+  ],
+  "note": "Misa loves playing with her friends!"
+}
